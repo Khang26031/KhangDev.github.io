@@ -1,1 +1,307 @@
-hello
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Profile cá nhân của [Tên của bạn] - Chuyên gia về [lĩnh vực của bạn]">
+    <meta name="keywords" content="profile, cá nhân, [tên của bạn], [kỹ năng chính]">
+    <meta name="author" content="[Tên của bạn]">
+    <meta property="og:title" content="Profile Cá Nhân - [Tên của bạn]">
+    <meta property="og:description" content="Xin chào! Tôi là [Tên của bạn]. Kết nối với tôi qua Facebook và Telegram.">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:image" content="https://yourwebsite.com/avatar.jpg">
+    <title>Profile Cá Nhân - [Tên của bạn]</title>
+    <link rel="canonical" href="https://yourwebsite.com">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+        }
+        
+        .profile-header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 30px;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .name {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: 300;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            font-size: 1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .skill-tag {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background-color: white;
+            border: 2px solid #eee;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .social-link.facebook {
+            border-color: #1877f2;
+        }
+        
+        .social-link.facebook:hover {
+            background-color: #1877f2;
+            color: white;
+        }
+        
+        .social-link.telegram {
+            border-color: #0088cc;
+        }
+        
+        .social-link.telegram:hover {
+            background-color: #0088cc;
+            color: white;
+        }
+        
+        .social-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .contact-info {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .contact-item {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .social-link {
+                width: 250px;
+                justify-content: center;
+            }
+            
+            .skills {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="profile-header">
+            <div class="avatar">
+                TN
+            </div>
+            <h1 class="name">[Tên của bạn]</h1>
+            <p class="title">[Chức danh/Nghề nghiệp của bạn]</p>
+            <p class="description">
+                Xin chào! Tôi là [Tên của bạn], một [mô tả ngắn về bạn]. 
+                Tôi đam mê [sở thích/chuyên môn] và luôn sẵn sàng kết nối với mọi người.
+            </p>
+        </header>
+
+        <main>
+            <section class="content-section">
+                <h2 class="section-title">Về tôi</h2>
+                <p>
+                    [Viết một đoạn mô tả chi tiết hơn về bản thân, kinh nghiệm, 
+                    sở thích và những gì bạn muốn chia sẻ với mọi người.]
+                </p>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Kỹ năng</h2>
+                <div class="skills">
+                    <span class="skill-tag">[Kỹ năng 1]</span>
+                    <span class="skill-tag">[Kỹ năng 2]</span>
+                    <span class="skill-tag">[Kỹ năng 3]</span>
+                    <span class="skill-tag">[Kỹ năng 4]</span>
+                    <span class="skill-tag">[Kỹ năng 5]</span>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Kết nối với tôi</h2>
+                <div class="social-links">
+                    <a href="https://facebook.com/[your-facebook-username]" 
+                       class="social-link facebook" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Kết nối Facebook">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        Facebook
+                    </a>
+                    
+                    <a href="https://t.me/[your-telegram-username]" 
+                       class="social-link telegram" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       aria-label="Kết nối Telegram">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                        Telegram
+                    </a>
+                </div>
+            </section>
+
+            <div class="contact-info">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Thông tin liên hệ</h3>
+                <div class="contact-item">
+                    📧 Email: [your-email@example.com]
+                </div>
+                <div class="contact-item">
+                    📱 Điện thoại: [+84 xxx xxx xxx]
+                </div>
+                <div class="contact-item">
+                    📍 Địa chỉ: [Thành phố, Quốc gia]
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 [Tên của bạn]. Tất cả quyền được bảo lưu.</p>
+        </footer>
+    </div>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "[Tên của bạn]",
+        "jobTitle": "[Chức danh của bạn]",
+        "description": "[Mô tả ngắn về bạn]",
+        "url": "https://yourwebsite.com",
+        "sameAs": [
+            "https://facebook.com/[your-facebook-username]",
+            "https://t.me/[your-telegram-username]"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "[your-email@example.com]",
+            "telephone": "[+84 xxx xxx xxx]"
+        }
+    }
+    </script>
+</body>
+  </html>
