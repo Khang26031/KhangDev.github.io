@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Key</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* --- Cài đặt Biến và Giao diện Cơ bản --- */
+        :root {
+            --background-start: #0f0c29;
+            --background-mid: #302b63;
+            --background-end: #24243e;
+            --card-background: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --primary-color: #00c6ff;
+            --secondary-color: #0072ff;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, var(--background-start), var(--background-mid), var(--background-end));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            overflow: hidden; /* Ẩn scrollbar */
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Hiệu ứng Loading --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a2e;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* --- Khung chính (Card) --- */
+        .main-card {
+            width: 90%;
+            max-width: 400px;
+            background: var(--card-background);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* --- Thời gian --- */
+        #clock {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        /* --- Profile --- */
+        .profile {
+            margin-bottom: 25px;
+        }
+
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            padding: 3px;
+            box-shadow: 0 0 20px var(--primary-color);
+            object-fit: cover;
+        }
+
+        .profile h2 {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        /* --- Khu vực hiển thị Key --- */
+        .key-container p {
+            font-weight: 300;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        #key-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            word-wrap: break-word; /* Tự động xuống hàng nếu key quá dài */
+            border: 1px dashed var(--primary-color);
+            color: var(--primary-color);
+            letter-spacing: 1px;
+            min-height: 58px; /* Đảm bảo chiều cao ổn định */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- Nút Copy --- */
+        #copy-button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #copy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--secondary-color);
+        }
+
+        #copy-button:active {
+            transform: scale(1.02);
+        }
+        
+        #copy-button i {
+            margin-right: 8px;
+        }
+
+        /* --- Thông báo (Toast Notification) --- */
+        #notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            font-weight: 500;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+        }
+
+        #notification.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(-50%, -20px);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <audio id="background-music" src="https://files.catbox.moe/m8h42m.mp3" loop></audio>
+
+    <div class="main-card">
+        <div id="clock"></div>
+
+        <div class="profile">
+            <img src="https://i.pinimg.com/564x/e3/37/f6/e337f629f1201502a4caf14af75e1383.jpg" alt="Avatar">
+            <h2>KhangDev</h2>
+        </div>
+
+        <div class="key-container">
+            <p>Here Is Your Access Key:</p>
+            <div id="key-display">Loading key...</div>
+        </div>
+        
+        <button id="copy-button">
+            <i class="fa-solid fa-copy"></i> Copy Key
+        </button>
+    </div>
+
+    <div id="notification">
+        <i class="fa-solid fa-circle-check"></i> Đã sao chép vào bộ nhớ!
+    </div>
+
+    <script>
+        // Chờ toàn bộ trang tải xong
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const backgroundMusic = document.getElementById('background-music');
+
+            // Ẩn màn hình loading sau 1.5 giây để hiệu ứng được mượt mà
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1500);
+
+            // --- Lấy key từ URL ---
+            const keyDisplay = document.getElementById('key-display');
+            const urlParams = new URLSearchParams(window.location.search);
+            const key = urlParams.get('key');
+
+            if (key) {
+                keyDisplay.textContent = key;
+            } else {
+                keyDisplay.textContent = 'KEY_NOT_FOUND';
+                keyDisplay.style.color = '#ff5c5c';
+                keyDisplay.style.borderColor = '#ff5c5c';
+            }
+            
+            // --- Xử lý nhạc nền (Cần tương tác của người dùng để tự động phát trên nhiều trình duyệt) ---
+            document.body.addEventListener('click', () => {
+                if(backgroundMusic.paused) {
+                    backgroundMusic.volume = 0.3; // Chỉnh âm lượng tại đây (0.0 -> 1.0)
+                    backgroundMusic.play().catch(error => {
+                        console.log("Trình duyệt đã chặn tự động phát nhạc. Cần người dùng tương tác.");
+                    });
+                }
+            }, { once: true }); // Sự kiện này chỉ chạy 1 lần
+
+            // --- Xử lý nút Copy ---
+            const copyButton = document.getElementById('copy-button');
+            const notification = document.getElementById('notification');
+
+            copyButton.addEventListener('click', () => {
+                const keyText = keyDisplay.textContent;
+                if (keyText && keyText !== 'KEY_NOT_FOUND') {
+                    navigator.clipboard.writeText(keyText).then(() => {
+                        // Hiển thị thông báo
+                        notification.classList.add('show');
+                        // Tự động ẩn sau 2.5 giây
+                        setTimeout(() => {
+                            notification.classList.remove('show');
+                        }, 2500);
+                    }).catch(err => {
+                        console.error('Không thể sao chép key: ', err);
+                        alert('Lỗi! Không thể sao chép key.');
+                    });
+                }
+            });
+            
+            // --- Đồng hồ thời gian thực ---
+            const clockElement = document.getElementById('clock');
+            function updateClock() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+
+            updateClock(); // Cập nhật ngay lần đầu
+            setInterval(updateClock, 1000); // Cập nhật mỗi giây
+        });
+    </script>
+</body>
+  </html>
+  
