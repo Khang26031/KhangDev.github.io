@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kho Mã Nguồn Miễn Phí</title>
+    <meta name="description" content="Nơi chia sẻ các mã nguồn, project miễn phí dành cho cộng đồng lập trình viên.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #111827;
+            --card-color: #1F2937;
+            --primary-color: #38BDF8;
+            --text-color: #D1D5DB;
+            --heading-color: #F9FAFB;
+            --border-color: #374151;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header h1 {
+            color: var(--heading-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1rem;
+        }
+        #filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .filter-btn {
+            background-color: var(--card-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            border-color: var(--primary-color);
+        }
+        #projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .project-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .project-content h3 {
+            font-size: 1.5rem;
+            color: var(--heading-color);
+            margin: 0 0 10px 0;
+        }
+        .project-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .project-footer a {
+            background-color: var(--primary-color);
+            color: #111;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        .project-footer a:hover {
+            background-color: #67cff5;
+        }
+        .project-footer i {
+            margin-right: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Kho Mã Nguồn Miễn Phí</h1>
+            <p>Nơi chia sẻ các dự án và mã nguồn hữu ích cho cộng đồng.</p>
+        </header>
+
+        <nav id="filter-container"></nav>
+        
+        <main id="projects-grid"></main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectsGrid = document.getElementById('projects-grid');
+            const filterContainer = document.getElementById('filter-container');
+            let allProjects = [];
+
+            // Hàm fetch dữ liệu từ file code.json
+            async function loadProjects() {
+                try {
+                    const response = await fetch('code.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    allProjects = await response.json();
+                    displayProjects(allProjects);
+                    setupFilters();
+                } catch (error) {
+                    projectsGrid.innerHTML = `<p style="color: red;">Lỗi: Không thể tải file code.json. Vui lòng kiểm tra lại file và đường dẫn.</p>`;
+                    console.error("Fetch error:", error);
+                }
+            }
+
+            // Hàm hiển thị các dự án lên giao diện
+            function displayProjects(projects) {
+                projectsGrid.innerHTML = ''; // Xóa các dự án cũ
+                projects.forEach(project => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.dataset.category = project.category; // Thêm data attribute để lọc
+
+                    card.innerHTML = `
+                        <img src="${project.image_url}" alt="${project.title}">
+                        <div class="project-content">
+                            <h3>${project.title}</h3>
+                            <p>${project.description}</p>
+                            <div class="project-footer">
+                                <a href="${project.download_url}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-download"></i> Tải Về
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    projectsGrid.appendChild(card);
+                });
+            }
+            
+            // Hàm tạo các nút lọc
+            function setupFilters() {
+                const categories = ['Tất cả', ...new Set(allProjects.map(p => p.category))];
+                filterContainer.innerHTML = categories.map(category => 
+                    `<button class="filter-btn ${category === 'Tất cả' ? 'active' : ''}" data-filter="${category}">${category}</button>`
+                ).join('');
+
+                // Thêm sự kiện click cho các nút
+                filterContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('filter-btn')) {
+                        const filterValue = e.target.dataset.filter;
+
+                        // Cập nhật trạng thái active cho nút được nhấn
+                        filterContainer.querySelector('.active').classList.remove('active');
+                        e.target.classList.add('active');
+                        
+                        // Lọc và hiển thị dự án
+                        const filteredProjects = filterValue === 'Tất cả' 
+                            ? allProjects 
+                            : allProjects.filter(p => p.category === filterValue);
+                        
+                        displayProjects(filteredProjects);
+                    }
+                });
+            }
+
+            loadProjects();
+        });
+    </script>
+
+</body>
+</html>
