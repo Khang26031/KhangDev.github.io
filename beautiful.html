@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công Cụ HTML - Làm Đẹp, Chạy Thử & Tải Về</title>
+    <style>
+        /* CSS để làm đẹp giao diện */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 25px;
+            background-color: #eef2f7; /* Nền nhẹ nhàng */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Canh trên */
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px; /* Chiều rộng lớn hơn để chứa nhiều nội dung */
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        p.description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .section-box {
+            background-color: #f8fafd;
+            border: 1px solid #e0e6ec;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 1.6em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #dde1e6;
+            padding-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 350px; /* Chiều cao lớn hơn cho editor */
+            padding: 15px;
+            border: 1px solid #c8d6e5;
+            border-radius: 6px;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 1em;
+            resize: vertical;
+            box-sizing: border-box;
+            background-color: #fdfefe;
+            color: #2c3e50;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Khoảng cách giữa các nút */
+            margin-top: 20px;
+            flex-wrap: wrap; /* Cho phép các nút xuống dòng trên màn hình nhỏ */
+        }
+
+        .button-group button {
+            flex: 1; /* Các nút sẽ co giãn để lấp đầy không gian */
+            min-width: 180px; /* Chiều rộng tối thiểu cho nút */
+            max-width: 250px; /* Chiều rộng tối đa cho nút */
+            padding: 12px 25px;
+            background-color: #007bff; /* Màu xanh dương chính */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-group button:nth-child(2) { /* Nút "Chạy Thử" */
+            background-color: #4CAF50; /* Màu xanh lá cây */
+        }
+
+        .button-group button:nth-child(3) { /* Nút "Tải File" */
+            background-color: #ff9800; /* Màu cam */
+        }
+
+        .button-group button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .button-group button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        #htmlOutputFrame {
+            width: 100%;
+            height: 450px; /* Chiều cao lớn hơn cho khung kết quả */
+            border: 1px solid #aebfd1;
+            border-radius: 6px;
+            background-color: #ffffff;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 20px;
+                gap: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.4em;
+            }
+            .button-group {
+                flex-direction: column; /* Nút xếp chồng lên nhau */
+                align-items: stretch; /* Kéo dài nút */
+            }
+            .button-group button {
+                min-width: unset; /* Bỏ giới hạn tối thiểu */
+                max-width: unset; /* Bỏ giới hạn tối đa */
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vkbeautify/0.99.3/vkbeautify.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Công Cụ HTML Toàn Diện Của Bạn</h1>
+        <p class="description">
+            Dán hoặc viết code HTML vào trình chỉnh sửa, sau đó sử dụng các nút bên dưới để làm đẹp, chạy thử và tải về file HTML của bạn.
+        </p>
+
+        <section class="section-box">
+            <h2>Chỉnh Sửa Code HTML:</h2>
+            <textarea id="htmlCodeEditor" spellcheck="false" placeholder="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>Trang HTML Của Tôi</title>
+    <style>body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 20px; } h1 { color: #333; } p { color: #666; }</style>
+</head>
+<body>
+    <h1>Chào Mừng!</h1>
+    <p>Đây là một ví dụ về code HTML bạn có thể chỉnh sửa.</p>
+    <button onclick=&quot;alert('Bạn đã nhấp vào nút!');&quot;>Nhấn Tôi</button>
+</body>
+</html>
+            "></textarea>
+            <div class="button-group">
+                <button onclick="beautifyHtml()">Làm Đẹp Code HTML</button>
+                <button onclick="runHtmlCode()">Chạy Thử HTML</button>
+                <button onclick="downloadHtmlFile()">Tải File HTML</button>
+            </div>
+        </section>
+
+        <section class="section-box">
+            <h2>Kết Quả HTML:</h2>
+            <iframe id="htmlOutputFrame" title="Kết quả code HTML đã chạy"></iframe>
+        </section>
+    </div>
+
+    <script>
+        const htmlCodeEditor = document.getElementById('htmlCodeEditor');
+        const htmlOutputFrame = document.getElementById('htmlOutputFrame');
+
+        /**
+         * Hàm làm đẹp code HTML trong textarea.
+         * Sử dụng thư viện vkbeautify.js
+         */
+        function beautifyHtml() {
+            const currentCode = htmlCodeEditor.value;
+            try {
+                // vkbeautify.xml() có thể xử lý tốt HTML
+                const beautifulCode = vkbeautify.xml(currentCode, 4); // 4 là số khoảng trắng thụt lề
+                htmlCodeEditor.value = beautifulCode;
+                alert('Code HTML đã được làm đẹp!');
+            } catch (error) {
+                alert('Có lỗi khi làm đẹp code. Đảm bảo code HTML hợp lệ: ' + error.message);
+            }
+        }
+
+        /**
+         * Hàm chạy code HTML trong iframe để hiển thị kết quả.
+         */
+        function runHtmlCode() {
+            const htmlCode = htmlCodeEditor.value;
+            const frameDoc = htmlOutputFrame.contentDocument || htmlOutputFrame.contentWindow.document;
+
+            frameDoc.open();
+            frameDoc.write(htmlCode);
+            frameDoc.close();
+            alert('Code HTML đã được chạy!');
+        }
+
+        /**
+         * Hàm tải file HTML hiện tại trong textarea về máy.
+         */
+        function downloadHtmlFile() {
+            const htmlCode = htmlCodeEditor.value;
+            const filename = 'my_beautiful_code.html'; // Tên file mặc định
+
+            const blob = new Blob([htmlCode], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click(); // Kích hoạt click để tải về
+            document.body.removeChild(a); // Xóa thẻ a sau khi tải
+            URL.revokeObjectURL(url); // Giải phóng URL object
+            alert(`File "${filename}" đã được tải về!`);
+        }
+
+        // Chạy code mẫu khi tải trang lần đầu để hiển thị kết quả
+        document.addEventListener('DOMContentLoaded', () => {
+            runHtmlCode();
+        });
+    </script>
+</body>
+  </html>
+  
