@@ -1,0 +1,30 @@
+[
+    {
+        "category": "HTML & CSS",
+        "title": "Trang Profile Cá Nhân",
+        "description": "Một mẫu website profile cá nhân đơn giản, sạch sẽ và chuyên nghiệp, được xây dựng hoàn toàn bằng HTML và CSS.",
+        "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070",
+        "download_url": "https://github.com/your-username/your-repo/archive/refs/heads/main.zip"
+    },
+    {
+        "category": "JavaScript",
+        "title": "Ứng dụng Đồng Hồ Bấm Giờ",
+        "description": "Một ứng dụng đồng hồ bấm giờ đơn giản sử dụng JavaScript thuần, có các chức năng Start, Stop, và Reset.",
+        "image_url": "https://images.unsplash.com/photo-1590439471364-192aa70c0b53?q=80&w=1974",
+        "download_url": "#"
+    },
+    {
+        "category": "Python",
+        "title": "Tool Tự Động Hóa Telegram",
+        "description": "Một script Python sử dụng thư viện Telebot để tự động trả lời tin nhắn và thực hiện các tác vụ trên Telegram.",
+        "image_url": "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?q=80&w=1974",
+        "download_url": "#"
+    },
+    {
+        "category": "HTML & CSS",
+        "title": "Giao Diện Web Bán Hàng",
+        "description": "Mẫu giao diện cho một trang thương mại điện tử đơn giản, tập trung vào sản phẩm, tương thích với thiết bị di động.",
+        "image_url": "https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?q=80&w=2070",
+        "download_url": "#"
+    }
+]
